@@ -14,8 +14,20 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   City.init({
-    name: DataTypes.STRING,
-    code: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate : {
+        isString(value){
+          if(typeof value !="string"){
+            throw new Error('Only strings are allowed');
+          }
+        }
+      }
+
+
+    }
   }, {
     sequelize,
     modelName: 'City',

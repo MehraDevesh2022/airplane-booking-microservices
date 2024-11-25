@@ -1,7 +1,7 @@
 const { StatusCodes } = require("http-status-codes")
 const { AirplaneService } = require("../services");
 const { ErrorResponse, SuccessResponse } = require("../utils");
-const { distroyAirplane } = require("../services/airplane-services");
+
 
 /**
  * POST : /airplane

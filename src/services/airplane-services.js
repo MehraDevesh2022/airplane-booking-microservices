@@ -60,7 +60,7 @@ async function updateAirplane(id, data) {
             error.errors.forEach(err => {
                 explanation.push(err.message);
             });
-            throw new AppError(explanation, StatusCodes.BAD_REQUEST)
+            throw new AppError(explanation, error.statusCode == StatusCodes.NOT_FOUND ? StatusCodes.NOT_FOUND : StatusCodes.BAD_REQUEST)
         }
         throw new AppError(["Cannot update data of the airplane."], StatusCodes.INTERNAL_SERVER_ERROR)
     }
@@ -73,11 +73,7 @@ async function distroyAirplane(id) {
         return airplane;
     } catch (error) {
         if (error.statusCode == StatusCodes.NOT_FOUND) {
-            let explanation = [];
-            error.errors.forEach(err => {
-                explanation.push(err.message);
-            });
-            throw new AppError(explanation, StatusCodes.BAD_REQUEST)
+            throw new AppError(["The airplane you requested is not present."], StatusCodes.NOT_FOUND)
         }
         throw new AppError(["Cannot delete data of the airplane."], StatusCodes.INTERNAL_SERVER_ERROR)
     }
