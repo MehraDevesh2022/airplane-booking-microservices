@@ -10,16 +10,28 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull : false,
+        unique : true
       },
       code: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull : false ,
+        unique : true
       },
       cityID: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER, 
+        allowNull :false,
+        references : {
+          model : "Cities",
+          key :  "id"
+        },
+        onDelete : "CASCADE"
+
       },
       address: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique : true
       },
       createdAt: {
         allowNull: false,
