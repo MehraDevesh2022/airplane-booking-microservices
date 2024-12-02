@@ -5,5 +5,5 @@ const cityRoutes = require("./city-router");
 const airportRoutes = require("./airport-routes");
 router.use("/airplane" , airplaneRoutes);
 router.use("/city" , cityRoutes);
-router.use("/airport" , airplaneRoutes)
+router.use("/airport" , airportRoutes)
 module.exports = router;
