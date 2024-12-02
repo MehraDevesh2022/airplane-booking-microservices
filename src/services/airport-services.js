@@ -1,17 +1,21 @@
 const { AirportRepository } = require("../repositories");
 const { StatusCodes } = require("http-status-codes");
 const { AppError } = require("../utils");
-const { distroyAirplane } = require("./airplane-services");
 
 
 const airportRepository = new AirportRepository();
 
 async function createAirport(data) {
+   
+    
   try {
     const airport = await airportRepository.create(data);
     return airport;
   } catch (error) {
-    if (error.name == "SequelizeValidationError") {
+    console.log("err", error);
+    
+    
+    if (error.name == "SequelizeValidationError" ) {
       let explanation = [];
       error.errors.forEach(err => {
         explanation.push(err.message);
@@ -83,6 +87,6 @@ module.exports = {
   updateAirport,
   destroyAirport,
   getAirport,
-  getAirport,
+  getAirports,
   
 }
