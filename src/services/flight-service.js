@@ -9,13 +9,12 @@ const fligthRepository = new FligthRepository();
 async function createFlight(data) {
 
     try {
-        console.log(data);
+       
         
         const flight = await fligthRepository.create(data);
         return flight;
     } catch (error) {
-    console.log("err" , error);
-    
+        console.log("Error in service layer:", error);
           if (error.name == "SequelizeValidationError" || error.name == "SequelizeUniqueConstraintError") {
             let explnation = [];
             error.errors.forEach((err) => {

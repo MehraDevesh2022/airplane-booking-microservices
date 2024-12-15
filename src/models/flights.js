@@ -12,16 +12,16 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.Airplane , {
-        foreignKey : "airplaneID",
+        foreignKey : "airplaneId",
       })
 
       this.belongsTo(models.Airport, {
-        foreignKey: "departuerAirportID",
+        foreignKey: "departureAirportId",
         as: "departureFlights",
       });
     
       this.belongsTo(models.Airport, {
-        foreignKey: "arrivelAirportID",
+        foreignKey: "arrivalAirportId",
         as: "arrivalFlights",
       });
     }
@@ -29,17 +29,18 @@ module.exports = (sequelize, DataTypes) => {
   Flights.init({
     flightNumber:{
       type :  DataTypes.STRING,
-      allowNull :false
+      allowNull :false,
+      unique : true
     },
-    airplaneID: {
+    airplaneId: {
       type :  DataTypes.INTEGER,
       allowNull : false
     },
-    departuerAirportID: {
+    departureAirportId: {
       type :  DataTypes.INTEGER,
       allowNull :false
     },
-    arrivelAirportID:  {
+    arrivalAirportId:  {
       type :  DataTypes.INTEGER,
       allowNull :false
     },
@@ -53,14 +54,18 @@ module.exports = (sequelize, DataTypes) => {
     },
     price: {
       type : DataTypes.INTEGER,
-      allowNull :false
+      allowNull :false,
+      validate : {
+        min : 0
+      }
     },
     boardingGate: {
       type :DataTypes.STRING
     },
     totalSeats: {
       type : DataTypes.INTEGER,
-      allowNull :false
+      allowNull :false,
+      defaultValue : 0
     }
   }, {
     sequelize,

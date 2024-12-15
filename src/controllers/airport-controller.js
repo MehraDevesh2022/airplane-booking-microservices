@@ -17,7 +17,7 @@ async function createAirport(req, res) {
           const airport = await AirportServices.createAirport({
                name: req.body.name,
                code: req.body.code,
-               cityID: req.body.cityID,
+               cityId: req.body.cityId,
                address: req.body.address
           });
 

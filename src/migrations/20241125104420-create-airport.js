@@ -19,7 +19,7 @@ module.exports = {
         allowNull : false ,
         unique : true
       },
-      cityID: {
+      cityId: {
         type: Sequelize.INTEGER, 
         allowNull :false,
         references : {

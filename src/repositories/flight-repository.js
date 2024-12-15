@@ -1,4 +1,4 @@
-const CrudRepository  = require("./airport-repository");
+const CrudRepository  = require("./crud-repository");
 const {Flights} = require("../models");
 
 
