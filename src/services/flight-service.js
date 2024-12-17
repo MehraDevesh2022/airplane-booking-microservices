@@ -43,7 +43,11 @@ async function getFlight(id) {
 }
 
 
-async function getFlights() {
+async function getFlights(query) {
+       
+    //
+ 
+ 
     try {
         const flights = await fligthRepository.getAll();
         return flights;
