@@ -46,7 +46,9 @@ async function getFlight(id) {
 async function getFlights(query) {
        
     //
- 
+    let customFilter = {};
+    let sortFilter = [];
+    const endingTripTime = " 23:59:00";
  
     try {
         const flights = await fligthRepository.getAll();
