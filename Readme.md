@@ -2,6 +2,7 @@
  - npx sequilze db : create
 
 ## second step
+ - eg : `airplane`
  - npx sequelize model:generate --name Airplane --attributes modelNumber:string, capacity:integer; 
   - it will create migration file and model file for you will not create table for u though. need to migrate migration file first.
 
