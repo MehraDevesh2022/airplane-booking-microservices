@@ -23,12 +23,12 @@ router.post("/", FlightMiddleware.validateFlight
 router.get("/:id",  FligthController.getflight);
 
 /**
- * route : api/v1/cities
+ * route : api/v1/flight
  * method : get
  * logic : get all flight
  */
 
-router.get("/", FligthController.getflight);
+router.get("/", FligthController.getFlights);
 
 
 /**

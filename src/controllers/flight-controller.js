@@ -1,4 +1,5 @@
 
+const { log } = require("winston");
 const { FlightService } = require("../services")
 const { ErrorResponse, SuccessResponse } = require("../utils");
 const StatusCodes = require("http-status-codes")
@@ -49,6 +50,8 @@ async function createFlight(req, res) {
 
 async function getflight(req, res) {
     try {
+        
+        
         const flight = await FlightService.getFlight(req.params.id);
         SuccessResponse.data = flight;
         return res.status(StatusCodes.OK)
@@ -68,8 +71,8 @@ async function getflight(req, res) {
 async function getFlights(req, res) {
     try {
 
-
-        const flights = await FlightService.getFlights();
+        
+        const flights = await FlightService.getFlights(req.query);
         SuccessResponse.data = flights;
         return res.status(StatusCodes.OK)
             .json(SuccessResponse);
