@@ -14,7 +14,7 @@ async function createFlight(data) {
         const flight = await fligthRepository.create(data);
         return flight;
     } catch (error) {
-        console.log("Error in service layer:", error);
+      
         if (error.name == "SequelizeValidationError" || error.name == "SequelizeUniqueConstraintError") {
             let explnation = [];
             error.errors.forEach((err) => {
@@ -44,8 +44,6 @@ async function getFlight(id) {
 
 
 async function getFlights(query) {
-
-       console.log(query , "query");
        
     let customFilter = {}; // { departureTime: { [Op.gte]: "2021-09-01 00:00:00" }  , arrivalTime: { [Op.lte]: "2021-09-01 23:59:00" } }
     let sortFilter = []; // [ [ 'price', 'DESC' ]  , [ 'departureTime', 'ASC' ] ]
@@ -96,7 +94,6 @@ async function getFlights(query) {
             sortFilter = sort
 
         }
- console.log(customFilter , "customFilter" , sortFilter , "sortFilter");
  
 
     }
