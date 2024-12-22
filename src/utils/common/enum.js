@@ -1,0 +1,11 @@
+SEAT_TYPE = {
+    ECONOMY : "economy",
+    BUSINESS : "business",
+    PREMIUM_ECONOMY : "premium-economy",
+    FIRST_CLASS : "first_class"
+}
+
+
+module.exports ={
+    SEAT_TYPE
+}
