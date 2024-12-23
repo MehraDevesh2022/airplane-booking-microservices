@@ -12,16 +12,88 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    await queryInterface.bulkInsert("Airplanes" , [
+    await queryInterface.bulkInsert("Seats" , [
       {
-        modelNumber: 'airbus340',
-        capacity: 900,
+        airplaneId: 1,
+        row: 1,
+        col: 'A',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        modelNumber: 'boeing777',
-        capacity: 450,
+        airplaneId: 1,
+        row: 1,
+        col: 'B',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        airplaneId: 1,
+        row: 1,
+        col: 'C',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        airplaneId: 1,
+        row: 1,
+        col: 'D',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        airplaneId: 1,
+        row: 1,
+        col: 'E',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        airplaneId: 1,
+        row: 1,
+        col: 'F',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        airplaneId: 1,
+        row: 2,
+        col: 'A',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        airplaneId: 1,
+        row: 2,
+        col: 'B',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        airplaneId: 1,
+        row: 2,
+        col: 'C',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        airplaneId: 1,
+        row: 2,
+        col: 'D',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        airplaneId: 1,
+        row: 2,
+        col: 'E',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        airplaneId: 1,
+        row: 2,
+        col: 'F',
         createdAt: new Date(),
         updatedAt: new Date()
       }

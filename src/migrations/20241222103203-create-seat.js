@@ -26,7 +26,7 @@ module.exports = {
         allowNull: false
       },
       type: {
-        type: DataTypes.ENUM,
+        type: Sequelize.ENUM,
         values: [ECONOMY, BUSINESS, PREMIUM_ECONOMY, FIRST_CLASS],
         defaultValue: ECONOMY,
         allowNull: false
