@@ -33,15 +33,17 @@ module.exports = (sequelize, DataTypes) => {
       unique : true
     },
     airplaneId: {
+      
       type :  DataTypes.INTEGER,
       allowNull : false
     },
     departureAirportId: {
-      type :  DataTypes.INTEGER,
+      // it's string because we use the airport code as the id, 
+      type :  DataTypes.STRING,
       allowNull :false
     },
     arrivalAirportId:  {
-      type :  DataTypes.INTEGER,
+      type :  DataTypes.STRING,
       allowNull :false
     },
     arrivalTime:{

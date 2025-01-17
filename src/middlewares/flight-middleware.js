@@ -14,12 +14,12 @@ async function validateFlight(req, res, next) {
             .json(ErrorResponse);
     } else if (!req.body.departureAirportId) {
         ErrorResponse.message = "Something went wrong while creating flight.";
-        ErrorResponse.error = new AppError(["Departure airport id is not present in incoming request body."], StatusCodes.BAD_REQUEST);
+        ErrorResponse.error = new AppError(["Departure airport code is not present in incoming request body."], StatusCodes.BAD_REQUEST);
         return res.status(StatusCodes.BAD_REQUEST)
             .json(ErrorResponse);
     } else if (!req.body.arrivalAirportId) {
         ErrorResponse.message = "Something went wrong while creating flight.";
-        ErrorResponse.error = new AppError(["Arrival airport id is not present in incoming request body."], StatusCodes.BAD_REQUEST);
+        ErrorResponse.error = new AppError(["Arrival airport code is not present in incoming request body."], StatusCodes.BAD_REQUEST);
         return res.status(StatusCodes.BAD_REQUEST)
             .json(ErrorResponse);
     } else if (!req.body.arrivalTime) {

@@ -28,7 +28,7 @@ module.exports = {
         allowNull : false,
         references : {
           model : "Airports",
-          key : "id"
+          key : "code"
         },
          onDelete : "CASCADE" 
       },
@@ -37,7 +37,7 @@ module.exports = {
         allowNull : false,
         references : {
           model : "Airports",
-          key : "id"
+          key : "code"
         },
         onDelete : "CASCADE"
       },

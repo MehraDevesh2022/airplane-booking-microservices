@@ -9,8 +9,8 @@ const StatusCodes = require("http-status-codes")
  * req.body : {
  *  flightNumber: 'AI123',
  *  airplaneId: 1,
- *  departureAirportId: 1,
- *  arrivalAirportId: 2,
+ *  departureAirportId: DEL,
+ *  arrivalAirportId: BOM,
  *  arrivalTime: '2024-01-01T10:00:00Z',
  *  departureTime: '2024-01-01T08:00:00Z',
  *  price: 5000,
@@ -24,8 +24,8 @@ async function createFlight(req, res) {
         const flight = await FlightService.createFlight({
             flightNumber: req.body.flightNumber,
             airplaneId: parseInt(req.body.airplaneId),
-            departureAirportId: parseInt(req.body.departureAirportId),
-            arrivalAirportId: parseInt(req.body.arrivalAirportId),
+            departureAirportId: req.body.departureAirportId,
+            arrivalAirportId: req.body.arrivalAirportId,
             arrivalTime: req.body.arrivalTime,
             departureTime: req.body.departureTime,
             price: parseInt(req.body.price),
