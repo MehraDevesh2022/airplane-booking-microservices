@@ -1,6 +1,6 @@
 const { CityRepository } = require("../repositories")
 const { AppError } = require("../utils")
-const StatusCodes = require("http-status-codes")
+const {StatusCodes} = require("http-status-codes")
 
 const cityRepository = new CityRepository();
 async function createCity(data) {
@@ -8,7 +8,7 @@ async function createCity(data) {
         const city = await cityRepository.create(data);
         return city;
     } catch (error) {
-        console.log(error, "error");
+       
 
         if (error.name == "SequelizeValidationError" || error.name == "SequelizeUniqueConstraintError") {
             let explnation = [];
@@ -30,7 +30,8 @@ async function getCity(id) {
         return city;
 
     } catch (error) {
-        if (error.statusCode = StatusCodes.NOT_FOUND) {
+       
+        if (error.statusCode == StatusCodes.NOT_FOUND) {
             throw new AppError(["The city you requested is not presented."], StatusCodes.NOT_FOUND)
         }
         throw new AppError(["cannot fetch data of city."], StatusCodes.INTERNAL_SERVER_ERROR)

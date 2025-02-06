@@ -1,4 +1,4 @@
-SEAT_TYPE = {
+const SEAT_TYPE = {
     ECONOMY : "economy",
     BUSINESS : "business",
     PREMIUM_ECONOMY : "premium-economy",

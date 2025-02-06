@@ -1,6 +1,6 @@
 
 const { AppError } = require("../utils");
-
+const StatusCodes = require("http-status-codes")
 class CrudRepository {
     constructor(model) {
         this.model = model;
@@ -11,8 +11,7 @@ class CrudRepository {
         const response = await this.model.create(data);
         return response;
      }
-    
-     async destroy(data) {
+    async destroy(data) {
 
         const response = await this.model.destroy({
             where: {
@@ -21,7 +20,7 @@ class CrudRepository {
         });
        
         
-        if(!response){
+if(!response){
            
             throw new AppError(["Not able to found resource."] , StatusCodes.NOT_FOUND)
         }
@@ -31,11 +30,11 @@ class CrudRepository {
 
 
     async get(data) {
-
         const response = await this.model.findByPk(data);
         if(!response){
-            throw new AppError(["Not able to found resource."] , StatusCodes.NOT_FOUND)
+             throw new AppError(["Not able to found resource."] , StatusCodes.NOT_FOUND)
         }
+      
         return response;
 
     }
