@@ -7,14 +7,15 @@ const { Op } = require("sequelize");
 const fligthRepository = new FligthRepository();
 
 async function createFlight(data) {
-
+ 
     try {
 
 
         const flight = await fligthRepository.create(data);
         return flight;
     } catch (error) {
-      
+        console.log(error , "service")
+
         if (error.name == "SequelizeValidationError" || error.name == "SequelizeUniqueConstraintError") {
             let explnation = [];
             error.errors.forEach((err) => {
@@ -44,12 +45,13 @@ async function getFlight(id) {
 
 
 async function getFlights(query) {
-       
+
+
     let customFilter = {}; // { departureTime: { [Op.gte]: "2021-09-01 00:00:00" }  , arrivalTime: { [Op.lte]: "2021-09-01 23:59:00" } }
     let sortFilter = []; // [ [ 'price', 'DESC' ]  , [ 'departureTime', 'ASC' ] ]
     const endingTripTime = " 23:59:00";
 
-   
+
     const validateQuery = (query) => {
         if (query.trips) {
             let [departureAirportId, arrivalAirportId] = query.trips.split("-");
@@ -94,7 +96,7 @@ async function getFlights(query) {
             sortFilter = sort
 
         }
- 
+
 
     }
 
@@ -104,7 +106,7 @@ async function getFlights(query) {
         return flights;
     } catch (error) {
         console.log("Error in service layer:", error);
-        
+
         throw new AppError(["Cannot fetch data of Flights."], StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
@@ -127,10 +129,11 @@ async function destoryFlight(id) {
     }
 }
 
-async function updateFlight(id, data) {
+async function updateFlightSeats(id, noOfSeat, dec) {
     try {
+      console.log(id , noOfSeat , dec)
 
-        const flight = await fligthRepository.update(id, data);
+        const flight = await fligthRepository.updateRemainingSeats(id, noOfSeat, dec);
         return flight;
     } catch (error) {
         console.log("err", error);
@@ -144,7 +147,7 @@ async function updateFlight(id, data) {
         } else if (error.statusCode == StatusCodes.NOT_FOUND) {
             throw new AppError(["The flight you requested is not present."], StatusCodes.NOT_FOUND)
         } else {
-            throw new AppError(["Cannot update data of flight."], StatusCodes.INTERNAL_SERVER_ERROR);
+            throw new AppError(["Cannot update seats of flight."], StatusCodes.INTERNAL_SERVER_ERROR);
         }
 
 
@@ -152,9 +155,10 @@ async function updateFlight(id, data) {
 }
 
 
+
 module.exports = {
     createFlight,
-    updateFlight,
+    updateFlightSeats,
     getFlights,
     getFlight,
     destoryFlight

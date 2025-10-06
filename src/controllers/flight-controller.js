@@ -1,5 +1,5 @@
 
-const { log } = require("winston");
+
 const { FlightService } = require("../services")
 const { ErrorResponse, SuccessResponse } = require("../utils");
 const StatusCodes = require("http-status-codes")
@@ -36,6 +36,7 @@ async function createFlight(req, res) {
         return res.status(StatusCodes.CREATED)
             .json(SuccessResponse);
     } catch (error) {
+        console.log(error , "cont")
         ErrorResponse.error = error;
         return res.status(error.statusCode)
             .json(ErrorResponse);
@@ -49,13 +50,12 @@ async function createFlight(req, res) {
  */
 
 async function getflight(req, res) {
-    try {
-        
-        
+    try { 
+        console.log("GET FLIGHT" , req.params.id)
         const flight = await FlightService.getFlight(req.params.id);
         SuccessResponse.data = flight;
         return res.status(StatusCodes.OK)
-            .json(SuccessResponse);
+            .json(SuccessResponse);  
     } catch (error) {
         ErrorResponse.error = error;
         return res.status(error.statusCode)
@@ -121,14 +121,26 @@ async function destoryflight(req, res) {
  * }
  */
 
+  // updateFlight (no need for now)
 
-async function updateflight(req, res) {
+
+
+
+/**
+ * PATCH : api/v1/flights/:id/seats
+ * req.body : {
+ *  noOfSeats: number 
+ *  decrement/increment : boolean
+ * }
+ */
+async function updateflightSeats(req, res) {
     try {
-        const flight = await FlightService.updateFlight(req.params.id, req.body);
+      
+        const flight = await FlightService.updateFlightSeats(req.params.id, req.body?.totalSeats, dec=req.body?.totalSeats < 0 ? true : false);
         SuccessResponse.data = flight;
         return res.status(StatusCodes.OK)
             .json(SuccessResponse);
-    } catch (error) {
+    } catch (error) { 
         console.log(error);
 
         ErrorResponse.error = error;
@@ -141,7 +153,7 @@ async function updateflight(req, res) {
 
 module.exports = {
     createFlight,
-    updateflight,
+    updateflightSeats,
     getFlights,
     getflight,
     destoryflight

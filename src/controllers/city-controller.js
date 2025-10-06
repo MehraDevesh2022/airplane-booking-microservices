@@ -1,4 +1,3 @@
-const { log } = require("winston");
 const { CityServices } = require("../services")
 const { ErrorResponse, SuccessResponse } = require("../utils");
 const StatusCodes = require("http-status-codes")

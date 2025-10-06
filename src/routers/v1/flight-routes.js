@@ -32,13 +32,13 @@ router.get("/", FligthController.getFlights);
 
 
 /**
- * route : api/v1/flight
+ * route : api/v1/flight/:id/seats
  * method : patch
  * logic : update flight 
  */
 
-router.patch("/:id", FlightMiddleware.validateFlight ,
-                    FligthController.updateflight);
+router.patch("/:id/seats", FlightMiddleware.validateFlightSeats ,
+                    FligthController.updateflightSeats);
 
 
 /**

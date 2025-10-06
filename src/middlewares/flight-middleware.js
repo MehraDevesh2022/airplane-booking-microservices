@@ -1,5 +1,6 @@
-const { AppError, ErrorResponse } = require("../utils");
+const { AppError, ErrorResponse, CompareDates } = require("../utils");
 const { StatusCodes } = require("http-status-codes");
+const { compareDates } = CompareDates;
 
 async function validateFlight(req, res, next) {
     if (!req.body.flightNumber) {
@@ -42,11 +43,29 @@ async function validateFlight(req, res, next) {
         ErrorResponse.error = new AppError(["Total seats is not present in incoming request body."], StatusCodes.BAD_REQUEST);
         return res.status(StatusCodes.BAD_REQUEST)
             .json(ErrorResponse);
-    } else {
+    } else if (!compareDates(req.body.departureTime, req.body.arrivalTime)) {
+        ErrorResponse.message = "Something went wrong while creating flight.";
+        ErrorResponse.error = new AppError(["Arrival Time should be greater than departure time while creating flight."], StatusCodes.BAD_REQUEST);
+        return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse)
+    }
+    else {
         next();
     }
 }
 
+
+
+async function validateFlightSeats(req, res, next) {
+
+    if (!req.body.totalSeats) {
+        ErrorResponse.message = "Somthing went wrong while creating flight."
+        ErrorResponse.error = new AppError(["Seats is not present in incomming request body."], StatusCodes.BAD_REQUEST)
+        return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
+    }
+    next();
+}
+
 module.exports = {
-    validateFlight
+    validateFlight,
+    validateFlightSeats
 };

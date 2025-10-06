@@ -4,10 +4,10 @@ const { combine, timestamp, printf } = format;
 
 
 const myFormat = printf(({ level, message, timestamp, error }) => {
-    return `${timestamp} : ${level}: ${message}`;
+    return `${timestamp} : ${level}: ${message} : ${error}` 
 });
 
-const logger = createLogger({
+const logger = createLogger({ 
     format: combine(
         timestamp({ format: 'YYYY-MM-DD HH-mm-ss' }),
         myFormat
