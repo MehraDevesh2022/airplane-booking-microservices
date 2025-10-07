@@ -31,7 +31,8 @@ if(!response){
 
     async get(data) {
         const response = await this.model.findByPk(data);
-        if(!response){
+        
+        if(!response){  
              throw new AppError(["Not able to found resource."] , StatusCodes.NOT_FOUND)
         }
       

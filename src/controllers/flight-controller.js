@@ -1,7 +1,7 @@
 
 
 const { FlightService } = require("../services")
-const { ErrorResponse, SuccessResponse } = require("../utils");
+const { ErrorResponse, SuccessResponse, AppError } = require("../utils");
 const StatusCodes = require("http-status-codes")
 
 /**
@@ -36,7 +36,7 @@ async function createFlight(req, res) {
         return res.status(StatusCodes.CREATED)
             .json(SuccessResponse);
     } catch (error) {
-        console.log(error , "cont")
+   
         ErrorResponse.error = error;
         return res.status(error.statusCode)
             .json(ErrorResponse);
@@ -50,16 +50,27 @@ async function createFlight(req, res) {
  */
 
 async function getflight(req, res) {
-    try { 
-        console.log("GET FLIGHT" , req.params.id)
+    try {
         const flight = await FlightService.getFlight(req.params.id);
         SuccessResponse.data = flight;
         return res.status(StatusCodes.OK)
-            .json(SuccessResponse);  
+            .json(SuccessResponse);
     } catch (error) {
-        ErrorResponse.error = error;
-        return res.status(error.statusCode)
-            .json(ErrorResponse);
+         
+        if (error instanceof AppError) {
+            ErrorResponse.error = error;
+            return res.status(error.statusCode)
+                .json(ErrorResponse);
+        }
+
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            ...ErrorResponse,
+            error: {
+                explanation: "Internal server error.",
+                statusCode: StatusCodes.INTERNAL_SERVER_ERROR
+            }
+        })
+
     }
 }
 
@@ -71,7 +82,7 @@ async function getflight(req, res) {
 async function getFlights(req, res) {
     try {
 
-        
+
         const flights = await FlightService.getFlights(req.query);
         SuccessResponse.data = flights;
         return res.status(StatusCodes.OK)
@@ -121,7 +132,7 @@ async function destoryflight(req, res) {
  * }
  */
 
-  // updateFlight (no need for now)
+// updateFlight (no need for now)
 
 
 
@@ -135,12 +146,12 @@ async function destoryflight(req, res) {
  */
 async function updateflightSeats(req, res) {
     try {
-      
-        const flight = await FlightService.updateFlightSeats(req.params.id, req.body?.totalSeats, dec=req.body?.totalSeats < 0 ? true : false);
+
+        const flight = await FlightService.updateFlightSeats(req.params.id, req.body?.totalSeats, dec = req.body?.totalSeats < 0 ? true : false);
         SuccessResponse.data = flight;
         return res.status(StatusCodes.OK)
             .json(SuccessResponse);
-    } catch (error) { 
+    } catch (error) {
         console.log(error);
 
         ErrorResponse.error = error;

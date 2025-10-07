@@ -36,7 +36,8 @@ async function getFlight(id) {
         return flight;
 
     } catch (error) {
-        if (error.statusCode = StatusCodes.NOT_FOUND) {
+       if (error.statusCode = StatusCodes.NOT_FOUND) {
+
             throw new AppError(["The flight you requested is not presented."], StatusCodes.NOT_FOUND)
         }
         throw new AppError(["cannot fetch data of flight."], StatusCodes.INTERNAL_SERVER_ERROR)
