@@ -1,0 +1,22 @@
+# requirment analysis
+ - functional requirement => over all system functionality
+ - non funcational requirement => what we expect from the system like  
+   - performance
+   - security
+   - usability
+  
+# non funcational requirment
+ - we can expect more flight searches than bookings
+ - The system should be reliable in terms of bookings
+ - Expect that we will have more than 1,00,000 users signed up
+ - 1,00,000 bookings might come in a quarter
+ - In one day we might be getting 100 bookings
+ - System should be able to make sure that we dont change the price of a flight after the user has booked it
+    when then booking paymnet is going on
+ - System should be able to auto scale itself for atleast 3x more traffic
+
+
+
+- Flight service
+
+   
