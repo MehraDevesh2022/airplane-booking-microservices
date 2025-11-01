@@ -147,7 +147,7 @@ async function destoryflight(req, res) {
 async function updateflightSeats(req, res) {
     try {
 
-        const flight = await FlightService.updateFlightSeats(req.params.id, req.body?.totalSeats, dec = req.body?.totalSeats < 0 ? true : false);
+        const flight = await FlightService.updateFlightSeats(req.params.id, req.body?.totalSeats, inc = req.body?.totalSeats < 0 ? true : false);
         SuccessResponse.data = flight;
         return res.status(StatusCodes.OK)
             .json(SuccessResponse);

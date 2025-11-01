@@ -1,8 +1,7 @@
 const CrudRepository = require("./crud-repository");
 const { Flights, Airplane, Airport } = require("../models");
 const db = require("../models");
-const {FLIGHT_QUERIES} = require("../utils")
-
+// import { LOCK } from '@sequelize/core';
 class FligthRepository extends CrudRepository {
       constructor() {
             super(Flights);
@@ -39,15 +38,29 @@ class FligthRepository extends CrudRepository {
       }
 
 
-      async updateRemainingSeats(flightId, noOfSeat, dec = true) {
-               console.log("called");
+      async updateRemainingSeats(flightId, noOfSeat, inc = true) {
+           
+
+            
                
             const t = await db.sequelize.transaction();
             try {
-                  await db.sequelize.query(FLIGHT_QUERIES.addRowLockOnFlight(flightId));
-                  const flight = await Flights.findByPk(flightId);
-                   console.log("hello") 
-                  if (!dec) {
+                   
+                  const flight  = await Flights.findByPk(flightId, {
+                        transaction: t,
+                        lock: LOCK.UPDATE
+                  })
+                   
+                if(!flight || flight.length === 0){
+                  throw new AppError(["Flight not found."], StatusCodes.NOT_FOUND);
+                }
+
+                  if(flight.totalSeats < noOfSeat){
+                    throw new AppError(["Not enough seats available."], StatusCodes.BAD_REQUEST);
+                  }
+                   
+             
+                  if (!inc) {
                         await flight.decrement("totalSeats", { by: Math.abs(noOfSeat) }, { transaction: t })
 
                   } else {
@@ -59,7 +72,6 @@ class FligthRepository extends CrudRepository {
 
 
             } catch (error) {
-                  console.log("hello2");
                   
                   await t.rollback();
                   throw error

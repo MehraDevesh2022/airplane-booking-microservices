@@ -130,11 +130,11 @@ async function destoryFlight(id) {
     }
 }
 
-async function updateFlightSeats(id, noOfSeat, dec) {
+async function updateFlightSeats(id, noOfSeat, inc) {
     try {
-      console.log(id , noOfSeat , dec)
 
-        const flight = await fligthRepository.updateRemainingSeats(id, noOfSeat, dec);
+
+        const flight = await fligthRepository.updateRemainingSeats(id, noOfSeat, inc);
         return flight;
     } catch (error) {
         console.log("err", error);
