@@ -1,9 +1,8 @@
 const { AppError, ErrorResponse } = require("../utils")
 const { StatusCodes } = require("http-status-codes");
 async function airportVaildator(req, res, next) {
-          console.log("req" ,req.body);
-          
-    if (!req.body.name) {
+    
+        if (!req.body.name) {
         ErrorResponse.message = "Somthing went wrong while creating aiport."
         ErrorResponse.error = new AppError(["Airport name not present in oncomung request body data."], StatusCodes.BAD_REQUEST);
              return  res.status(StatusCodes.BAD_REQUEST)
