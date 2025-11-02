@@ -1,7 +1,7 @@
 const CrudRepository = require("./crud-repository");
 const { Flights, Airplane, Airport } = require("../models");
 const db = require("../models");
-// import { LOCK } from '@sequelize/core';
+
 class FligthRepository extends CrudRepository {
       constructor() {
             super(Flights);
@@ -39,44 +39,43 @@ class FligthRepository extends CrudRepository {
 
 
       async updateRemainingSeats(flightId, noOfSeat, inc = true) {
-           
 
-            
-               
             const t = await db.sequelize.transaction();
             try {
-                   
-                  const flight  = await Flights.findByPk(flightId, {
-                        transaction: t,
-                        lock: LOCK.UPDATE
-                  })
-                   
-                if(!flight || flight.length === 0){
-                  throw new AppError(["Flight not found."], StatusCodes.NOT_FOUND);
-                }
 
-                  if(flight.totalSeats < noOfSeat){
-                    throw new AppError(["Not enough seats available."], StatusCodes.BAD_REQUEST);
+                  const flight = await Flights.findByPk(flightId,
+                        {
+                              lock: true,
+                              transaction: t
+                        });
+
+                  if (!flight || flight.length === 0) {
+                        throw new AppError(["Flight not found."], StatusCodes.NOT_FOUND);
                   }
-                   
-             
+
+                  if (flight.totalSeats < noOfSeat) {
+                        throw new AppError(["Not enough seats available."], StatusCodes.BAD_REQUEST);
+                  }
+
                   if (!inc) {
-                        await flight.decrement("totalSeats", { by: Math.abs(noOfSeat) }, { transaction: t })
+                        await flight.decrement("totalSeats", { by: Math.abs(noOfSeat), transaction: t })
 
                   } else {
                         await flight.increment("totalSeats", { by: Math.abs(noOfSeat) }, { transaction: t })
                   }
-
                   await t.commit();
+
                   return flight;
 
 
             } catch (error) {
-                  
+                  console.log(error, "error");
+
                   await t.rollback();
                   throw error
             }
       }
+
 
 }
 

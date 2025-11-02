@@ -7,14 +7,14 @@ const { Op } = require("sequelize");
 const fligthRepository = new FligthRepository();
 
 async function createFlight(data) {
- 
+
     try {
 
 
         const flight = await fligthRepository.create(data);
         return flight;
     } catch (error) {
-        console.log(error , "service")
+     
 
         if (error.name == "SequelizeValidationError" || error.name == "SequelizeUniqueConstraintError") {
             let explnation = [];
@@ -36,7 +36,7 @@ async function getFlight(id) {
         return flight;
 
     } catch (error) {
-       if (error.statusCode = StatusCodes.NOT_FOUND) {
+        if (error.statusCode = StatusCodes.NOT_FOUND) {
 
             throw new AppError(["The flight you requested is not presented."], StatusCodes.NOT_FOUND)
         }
