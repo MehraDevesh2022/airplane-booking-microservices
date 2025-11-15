@@ -14,7 +14,7 @@ async function airportVaildator(req, res, next) {
         return  res.status(StatusCodes.BAD_REQUEST)
                    .json(ErrorResponse);
     }
-    else if (!req.body.cityId) {
+    else if (!req.body.cityId) { 
         ErrorResponse.message = "Somthing went wrong while creating aiport."
         ErrorResponse.error = new AppError(["Airport cityId not in present oncomung request body data."], StatusCodes.BAD_REQUEST);
         return  res.status(StatusCodes.BAD_REQUEST)

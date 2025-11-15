@@ -72,7 +72,7 @@ async function getFlights(query) {
             }
         }
         if (query.travellers) {
-            let travellers = query.travellers.split('-').map(Number); // will convert in array and map(Number) will aprse in int
+            let travellers = query.travellers.split('-').map(Number); // will convert in array and map(Number) will parse in int
             let totalTravellers = travellers.reduce((acc, curr) => acc + curr, 0);
             if (totalTravellers < 0) {
                 throw new AppError(["Invalid number of travellers.".StatusCodes.BAD_REQUEST]);
