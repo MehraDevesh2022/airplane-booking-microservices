@@ -54,7 +54,7 @@ class FligthRepository extends CrudRepository {
                   }
 
                   if (flight.totalSeats < noOfSeat) {
-                        throw new AppError(["Not enough seats available."], StatusCodes.BAD_REQUEST);
+                  throw new AppError(["Not enough seats available."], StatusCodes.BAD_REQUEST);
                   }
 
                   if (!inc) {

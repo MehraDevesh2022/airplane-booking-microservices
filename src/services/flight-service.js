@@ -137,8 +137,6 @@ async function updateFlightSeats(id, noOfSeat, inc) {
         const flight = await fligthRepository.updateRemainingSeats(id, noOfSeat, inc);
         return flight;
     } catch (error) {
-        console.log("err", error);
-
         if (error.name == "SequelizeValidationError" || error.name == "SequelizeUniqueConstraintError") {
             let explnation = [];
             error.errors.forEach((err) => {
