@@ -22,7 +22,7 @@ class CrudRepository {
 
         if (!response) {
 
-            throw new AppError(["Not able to found resource."], StatusCodes.NOT_FOUND)
+            throw new AppError(["Not able to find resource."], StatusCodes.NOT_FOUND)
         }
         return response;
 
@@ -33,7 +33,7 @@ class CrudRepository {
         const response = await this.model.findByPk(data);
 
         if (!response) {
-            throw new AppError(["Not able to found resource."], StatusCodes.NOT_FOUND)
+            throw new AppError(["Not able to find resource."], StatusCodes.NOT_FOUND)
         }
 
         return response;
@@ -56,7 +56,7 @@ class CrudRepository {
             }
         });
         if (!response) {
-            throw new AppError(["Not able to found resource."], StatusCodes.NOT_FOUND)
+            throw new AppError(["Not able to find resource."], StatusCodes.NOT_FOUND)
         }
         return response;
 
