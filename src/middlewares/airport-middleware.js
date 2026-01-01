@@ -1,34 +1,38 @@
 const { AppError, ErrorResponse } = require("../utils")
 const { StatusCodes } = require("http-status-codes");
-async function airportVaildator(req, res, next) {
-    
-        if (!req.body.name) {
-        ErrorResponse.message = "Somthing went wrong while creating aiport."
-        ErrorResponse.error = new AppError(["Airport name not present in oncomung request body data."], StatusCodes.BAD_REQUEST);
-             return  res.status(StatusCodes.BAD_REQUEST)
-                        .json(ErrorResponse);
-            }
-    else if (!req.body.code) {
-        ErrorResponse.message = "Somthing went wrong while creating aiport."
-        ErrorResponse.error = new AppError(["Airport code not in present oncomung request body data."], StatusCodes.BAD_REQUEST);
-        return  res.status(StatusCodes.BAD_REQUEST)
-                   .json(ErrorResponse);
-    }
-    else if (!req.body.cityId) { 
-        ErrorResponse.message = "Somthing went wrong while creating aiport."
-        ErrorResponse.error = new AppError(["Airport cityId not in present oncomung request body data."], StatusCodes.BAD_REQUEST);
-        return  res.status(StatusCodes.BAD_REQUEST)
-                   .json(ErrorResponse);
-    }
-    else if (!req.body.address) {
-        ErrorResponse.message = "Somthing went wrong while creating aiport."
-        ErrorResponse.error = new AppError(["Airport address not in  present oncomung request body data."], StatusCodes.BAD_REQUEST);
-        return  res.status(StatusCodes.BAD_REQUEST)
-                   .json(ErrorResponse);
-    }else{
-        next();
-    }
+
+
+const sendErrorResponse = (res, message, detail) => {
+
+    ErrorResponse.message = message;
+    ErrorResponse.error = new AppError([detail], StatusCodes.BAD_REQUEST);
+    return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
 
 }
 
-module.exports = airportVaildator;
+
+async function airportValidator(req, res, next) {
+
+    const errorMessages = "Something went wrong while creating airport."
+
+    const validators = [
+        { condition: !req.body.name, detail: "Airport name not present in oncoming request body data." },
+        { condition: !req.body.code, detail: "Airport code not present in oncoming request body data." },
+        { condition: !req.body.cityId, detail: "Airport cityId not present in oncoming request body data." },
+        { condition: !req.body.address, detail: "Airport address not present in oncoming request body data." }
+
+    ]
+
+
+    for (const validator of validators) {
+        if (validator.condition) {
+            return sendErrorResponse(res, errorMessages, validator.detail);
+        }
+
+    }
+
+    next();
+
+    }
+
+    module.exports = airportValidator;
