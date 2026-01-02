@@ -1,5 +1,8 @@
 node_modules
-/src/.env
-/src/config/config.json
-/src/combined.log
-/db-design.md
+.env
+config.json
+combined.log
+db-design.md
+
+
+demo.js

@@ -2,7 +2,7 @@ const CrudRepository = require("./crud-repository");
 const { Flights, Airplane, Airport } = require("../models");
 const db = require("../models");
 
-class FligthRepository extends CrudRepository {
+class FlightRepository extends CrudRepository {
       constructor() {
             super(Flights);
       }
@@ -23,7 +23,7 @@ class FligthRepository extends CrudRepository {
                               as: "departureAirport",
                               required: true,
                         },
-                        { 
+                        {
                               model: Airport,
                               as: "arrivalAirport",
                               required: true,
@@ -48,20 +48,20 @@ class FligthRepository extends CrudRepository {
                               lock: true,
                               transaction: t
                         });
-                 
+
                   if (!flight || flight.length === 0) {
                         throw new AppError(["Flight not found."], StatusCodes.NOT_FOUND);
                   }
 
                   if (flight.totalSeats < noOfSeat) {
-                  throw new AppError(["Not enough seats available."], StatusCodes.BAD_REQUEST);
+                        throw new AppError(["Not enough seats available."], StatusCodes.BAD_REQUEST);
                   }
 
                   if (!inc) {
-                        await flight.decrement("totalSeats", { by: Math.abs(noOfSeat), transaction: t})
+                        await flight.decrement("totalSeats", { by: Math.abs(noOfSeat), transaction: t })
 
                   } else {
-                        await flight.increment("totalSeats", { by: Math.abs(noOfSeat) , transaction: t })
+                        await flight.increment("totalSeats", { by: Math.abs(noOfSeat), transaction: t })
                   }
 
                   await t.commit();
@@ -79,4 +79,4 @@ class FligthRepository extends CrudRepository {
 }
 
 
-module.exports = FligthRepository;   
+module.exports = FlightRepository;   

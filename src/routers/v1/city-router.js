@@ -9,8 +9,8 @@ const { CityController } = require("../../controllers")
  * logic : create
  */
 
-router.post("/", CityMiddleware.vaildateCityInputs
-              , CityController.createCity
+router.post("/", CityMiddleware.validateCityInputs
+    , CityController.createCity
 );
 
 
@@ -20,7 +20,7 @@ router.post("/", CityMiddleware.vaildateCityInputs
  * logic : get city by id
  */
 
-router.get("/:id",  CityController.getCity);
+router.get("/:id", CityController.getCity);
 
 /**
  * route : api/v1/cities
@@ -37,8 +37,8 @@ router.get("/", CityController.getCities);
  * logic : update city 
  */
 
-router.patch("/:id", CityMiddleware.vaildateCityInputs ,
-                  CityController.updateCity);
+router.patch("/:id", CityMiddleware.validateCityInputs,
+    CityController.updateCity);
 
 
 /**
@@ -47,7 +47,7 @@ router.patch("/:id", CityMiddleware.vaildateCityInputs ,
  * logic : delete city by id
  */
 
-router.delete("/:id",  CityController.destoryCity);
+router.delete("/:id", CityController.destroyCity);
 
 
 module.exports = router;

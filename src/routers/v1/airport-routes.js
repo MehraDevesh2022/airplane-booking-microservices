@@ -4,10 +4,10 @@ const {AirportController} = require('../../controllers');
 const {AirportMiddleware}  = require("../../middlewares");
 
 router.post("/" ,AirportMiddleware ,  AirportController.createAirport);
-router.get("/:id" , AirportController.getAiport);
-router.get("/" , AirportController.getAiports);
+router.get("/:id" , AirportController.getAirport);
+router.get("/" , AirportController.getAirports);
 router.patch("/:id" ,AirportMiddleware , AirportController.updateAirport);
-router.delete("/:id" , AirportController.destoryAirport);
+router.delete("/:id" , AirportController.destroyAirport);
 
 
 

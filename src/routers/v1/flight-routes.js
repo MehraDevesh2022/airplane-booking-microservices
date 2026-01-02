@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { FlightMiddleware } = require("../../middlewares")
-const { FligthController } = require("../../controllers")
+const { FlightController } = require("../../controllers")
 
 /**
  * route : api/v1/flight
@@ -10,7 +10,7 @@ const { FligthController } = require("../../controllers")
  */
 
 router.post("/", FlightMiddleware.validateFlight
-              , FligthController.createFlight
+    , FlightController.createFlight
 );
 
 
@@ -20,7 +20,7 @@ router.post("/", FlightMiddleware.validateFlight
  * logic : get flight by id
  */
 
-router.get("/:id",  FligthController.getflight);
+router.get("/:id", FlightController.getFlight);
 
 /**
  * route : api/v1/flight
@@ -28,7 +28,7 @@ router.get("/:id",  FligthController.getflight);
  * logic : get all flight
  */
 
-router.get("/", FligthController.getFlights);
+router.get("/", FlightController.getFlights);
 
 
 /**
@@ -37,8 +37,8 @@ router.get("/", FligthController.getFlights);
  * logic : update flight 
  */
 
-router.patch("/:id/seats", FlightMiddleware.validateFlightSeats ,
-                    FligthController.updateflightSeats);
+router.patch("/:id/seats", FlightMiddleware.validateFlightSeats,
+    FlightController.updateFlightSeats);
 
 
 /**
@@ -47,7 +47,7 @@ router.patch("/:id/seats", FlightMiddleware.validateFlightSeats ,
  * logic : delete flight by id
  */
 
-router.delete("/:id",  FligthController.destoryflight);
+router.delete("/:id", FlightController.destroyFlight);
 
 
 module.exports = router;

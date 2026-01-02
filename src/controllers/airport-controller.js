@@ -37,7 +37,7 @@ async function createAirport(req, res) {
  * req.body : {}
  */
 
-async function destoryAirport(req, res) {
+async function destroyAirport(req, res) {
      try {
           const airport = await AirportServices.destroyAirport(req.params.id)
           SuccessResponse.data = airport;
@@ -76,10 +76,10 @@ async function updateAirport(req, res) {
  * req.body :  {}
  */
 
-async function getAiport(req, res) {
+async function getAirport(req, res) {
      try {
-          const aiport = await AirportServices.getAirport(req.params.id);
-          SuccessResponse.data = aiport;
+          const airport = await AirportServices.getAirport(req.params.id);
+          SuccessResponse.data = airport;
           return res.status(StatusCodes.OK)
                .json(SuccessResponse);
      } catch (error) {
@@ -96,10 +96,10 @@ async function getAiport(req, res) {
 * req.body :  {}
 */
 
-async function getAiports(req, res) {
+async function getAirports(req, res) {
      try {
-          const aiports= await AirportServices.getAirports();
-          SuccessResponse.data = aiports;
+          const airports= await AirportServices.getAirports();
+          SuccessResponse.data = airports;
           return res.status(StatusCodes.OK)
                .json(SuccessResponse);
      } catch (error) {
@@ -112,8 +112,8 @@ async function getAiports(req, res) {
 
 module.exports = {
      createAirport,
-     destoryAirport,
+     destroyAirport,
      updateAirport,
-     getAiport, 
-     getAiports
+     getAirport, 
+     getAirports
 }

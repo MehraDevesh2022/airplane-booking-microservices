@@ -8,40 +8,40 @@ const { AirplaneMiddleware } = require("../../middlewares")
  * logic : create
  */
 router.post("/", AirplaneMiddleware.validateCreateRequest,
-                 AirplaneController.createAirplane);
+    AirplaneController.createAirplane);
 
 
- /**
- * path : api/v1/airplane 
- * method : get
- * logic : get all
- */
+/**
+* path : api/v1/airplane 
+* method : get
+* logic : get all
+*/
 
- router.get("/", AirplaneController.getAirplanes)
- 
- /**
- * path : api/v1/airplane/:id 
- * method : get
- * logic : get by id
- */
+router.get("/", AirplaneController.getAirplanes)
 
- router.get("/:id" , AirplaneController.getAirplane);
+/**
+* path : api/v1/airplane/:id 
+* method : get
+* logic : get by id
+*/
 
- /**
- * path : api/v1/airplane/:id 
- * method : delete
- * logic : delete by id
- */
+router.get("/:id", AirplaneController.getAirplane);
 
- router.delete("/:id" , AirplaneController.destoryAirplane);
+/**
+* path : api/v1/airplane/:id 
+* method : delete
+* logic : delete by id
+*/
 
- /**
- * path : api/v1/airplane/:id 
- * method : patch
- * logic : update by id
- */
+router.delete("/:id", AirplaneController.destroyAirplane);
 
- router.patch("/:id", 
+/**
+* path : api/v1/airplane/:id 
+* method : patch
+* logic : update by id
+*/
+
+router.patch("/:id",
     AirplaneMiddleware.validateCreateRequest,
     AirplaneController.updateAirplane);
 module.exports = router

@@ -70,11 +70,11 @@ async function getAirplane(req, res) {
 }
 
 /**
- * DETELE : airplane/:id,
+ * DELETE : airplane/:id,
  * req.body : {}
  */
 
-async function destoryAirplane(req, res) {
+async function destroyAirplane(req, res) {
     try {
         const airplane = await AirplaneService.distroyAirplane(req.params.id);
         SuccessResponse.data = airplane;
@@ -108,7 +108,7 @@ async function updateAirplane(req, res) {
 module.exports = {
     createAirplane,
     updateAirplane,
-    destoryAirplane,
+    destroyAirplane,
     getAirplane,
     getAirplanes
 }

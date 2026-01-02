@@ -36,7 +36,7 @@ async function createFlight(req, res) {
         return res.status(StatusCodes.CREATED)
             .json(SuccessResponse);
     } catch (error) {
-   
+
         ErrorResponse.error = error;
         return res.status(error.statusCode)
             .json(ErrorResponse);
@@ -49,14 +49,14 @@ async function createFlight(req, res) {
  * req.body : {}
  */
 
-async function getflight(req, res) {
+async function getFlight(req, res) {
     try {
         const flight = await FlightService.getFlight(req.params.id);
         SuccessResponse.data = flight;
         return res.status(StatusCodes.OK)
             .json(SuccessResponse);
     } catch (error) {
-         
+
         if (error instanceof AppError) {
             ErrorResponse.error = error;
             return res.status(error.statusCode)
@@ -101,11 +101,11 @@ async function getFlights(req, res) {
  * req.body  : {}
  */
 
-async function destoryflight(req, res) {
+async function destroyFlight(req, res) {
     try {
 
 
-        const flight = await FlightService.destoryFlight(req.params.id);
+        const flight = await FlightService.destroyFlight(req.params.id);
         SuccessResponse.data = flight;
         return res.status(StatusCodes.OK)
             .json(SuccessResponse);
@@ -144,7 +144,7 @@ async function destoryflight(req, res) {
  *  decrement/increment : boolean
  * }
  */
-async function updateflightSeats(req, res) {
+async function updateFlightSeats(req, res) {
     try {
 
         const flight = await FlightService.updateFlightSeats(req.params.id, req.body?.totalSeats, inc = req.body?.totalSeats < 0 ? true : false);
@@ -164,8 +164,8 @@ async function updateflightSeats(req, res) {
 
 module.exports = {
     createFlight,
-    updateflightSeats,
+    updateFlightSeats,
     getFlights,
-    getflight,
-    destoryflight
+    getFlight,
+    destroyFlight
 }

@@ -70,7 +70,7 @@ async function getCities(req, res) {
  * req.body  : {}
  */
 
-async function destoryCity(req, res) {
+async function destroyCity(req, res) {
     try {
        
         
@@ -114,5 +114,5 @@ module.exports  = {
     updateCity,
     getCities,
     getCity,
-    destoryCity
+    destroyCity
 }

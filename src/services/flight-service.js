@@ -1,28 +1,28 @@
-const { FligthRepository } = require("../repositories");
+const { FlightRepository } = require("../repositories");
 const { AppError } = require("../utils");
 const { StatusCodes } = require("http-status-codes");
 const { Op } = require("sequelize");
 
 
-const fligthRepository = new FligthRepository();
+const flightRepository = new FlightRepository();
 
 async function createFlight(data) {
 
     try {
 
 
-        const flight = await fligthRepository.create(data);
+        const flight = await flightRepository.create(data);
         return flight;
     } catch (error) {
-     
+
 
         if (error.name == "SequelizeValidationError" || error.name == "SequelizeUniqueConstraintError") {
-            let explnation = [];
+            let explanation = [];
             error.errors.forEach((err) => {
-                explnation.push(err.message)
+                explanation.push(err.message)
             })
 
-            throw new AppError(explnation, StatusCodes.BAD_REQUEST)
+            throw new AppError(explanation, StatusCodes.BAD_REQUEST)
 
         }
         throw new AppError(["Cannot create data of flight."], StatusCodes.INTERNAL_SERVER_ERROR)
@@ -32,7 +32,7 @@ async function createFlight(data) {
 
 async function getFlight(id) {
     try {
-        const flight = await fligthRepository.get(id);
+        const flight = await flightRepository.get(id);
         return flight;
 
     } catch (error) {
@@ -71,15 +71,15 @@ async function getFlights(query) {
                 [Op.between]: [(parseFloat(minPrice) || 0), (parseFloat(maxPrice) || 2000)]
             }
         }
-        if (query.travellers) {
-            let travellers = query.travellers.split('-').map(Number); // will convert in array and map(Number) will parse in int
-            let totalTravellers = travellers.reduce((acc, curr) => acc + curr, 0);
-            if (totalTravellers < 0) {
-                throw new AppError(["Invalid number of travellers.".StatusCodes.BAD_REQUEST]);
+        if (query.travelers) {
+            let travelers = query.travelers.split('-').map(Number); // will convert in array and map(Number) will parse in int
+            let totalTravelers = travelers.reduce((acc, curr) => acc + curr, 0);
+            if (totalTravelers < 0) {
+                throw new AppError(["Invalid number of travelers.".StatusCodes.BAD_REQUEST]);
 
             }
             customFilter.totalSeats = {
-                [Op.gte]: totalTravellers
+                [Op.gte]: totalTravelers
             }
         }
         if (query.tripDate) {
@@ -91,7 +91,7 @@ async function getFlights(query) {
             }
         }
         if (query.sort) {
-            // qury.sort = price_DESC , departureTime_ASC
+            // query.sort = price_DESC , departureTime_ASC
             let sortData = query.sort.split(","); // [price_DESC , departureTime_ASC]
             let sort = sortData.map((sort => sort.split("_"))); // [ [price , DESC] , [departureTime , ASC] ]
             sortFilter = sort
@@ -103,7 +103,7 @@ async function getFlights(query) {
 
     try {
         validateQuery(query);
-        const flights = await fligthRepository.getAllFlights(customFilter, sortFilter);
+        const flights = await flightRepository.getAllFlights(customFilter, sortFilter);
         return flights;
     } catch (error) {
         console.log("Error in service layer:", error);
@@ -114,11 +114,11 @@ async function getFlights(query) {
 
 
 
-async function destoryFlight(id) {
+async function destroyFlight(id) {
     try {
 
 
-        const flight = await fligthRepository.destroy(id);
+        const flight = await flightRepository.destroy(id);
         return flight;
     } catch (error) {
 
@@ -134,15 +134,15 @@ async function updateFlightSeats(id, noOfSeat, inc) {
     try {
 
 
-        const flight = await fligthRepository.updateRemainingSeats(id, noOfSeat, inc);
+        const flight = await flightRepository.updateRemainingSeats(id, noOfSeat, inc);
         return flight;
     } catch (error) {
         if (error.name == "SequelizeValidationError" || error.name == "SequelizeUniqueConstraintError") {
-            let explnation = [];
+            let explanation = [];
             error.errors.forEach((err) => {
-                explnation.push(err.message);
+                explanation.push(err.message);
             });
-            throw new AppError(explnation, error.statusCode == StatusCodes.NOT_FOUND ? StatusCodes.NOT_FOUND : StatusCodes.BAD_REQUEST);
+            throw new AppError(explanation, error.statusCode == StatusCodes.NOT_FOUND ? StatusCodes.NOT_FOUND : StatusCodes.BAD_REQUEST);
         } else if (error.statusCode == StatusCodes.NOT_FOUND) {
             throw new AppError(["The flight you requested is not present."], StatusCodes.NOT_FOUND)
         } else {
@@ -160,5 +160,5 @@ module.exports = {
     updateFlightSeats,
     getFlights,
     getFlight,
-    destoryFlight
+    destroyFlight
 }
