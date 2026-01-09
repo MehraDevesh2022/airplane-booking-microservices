@@ -1,8 +1,6 @@
 node_modules
-.env
-config.json
+/.env
+src/config/config.json
 combined.log
 db-design.md
-
-
 demo.js
